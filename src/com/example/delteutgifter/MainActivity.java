@@ -57,9 +57,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         super.onStop();
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("person1Name", person1Name);
-        editor.putString("person2Name", person2Name);
-        editor.putBoolean("namesSet", namesSet);
         editor.putString("expenses", Expense.serializeExpenses());
         editor.commit();
 
@@ -81,7 +78,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
 
     public void paidByPerson1(View view) {
         EditText editText = (EditText) findViewById(R.id.ETenterAmount);
-        float amountPaid = 0;
+        float amountPaid;
         try {
             amountPaid = Float.parseFloat(editText.getText().toString());
         } catch (NumberFormatException e) {
@@ -99,7 +96,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
 
     public void paidByPerson2(View view) {
         EditText editText = (EditText) findViewById(R.id.ETenterAmount);
-        float amountPaid = 0;
+        float amountPaid;
         try {
             amountPaid = Float.parseFloat(editText.getText().toString());
         } catch (NumberFormatException e) {
@@ -134,7 +131,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
 
     public void displayBalance() {
         double balance = (paidByPerson1 - paidByPerson2) / 2;
-        String balanceText = "";
+        String balanceText;
         if (balance < 0) {
             balanceText = person1Name + " owes: " + (-balance) + ",-";
         } else if (balance > 0) {
@@ -155,6 +152,14 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         person2Name = person2Entered.getText().toString();
         setButtonNames();
         namesSet = true;
+
+        // Saving names
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("person1Name", person1Name);
+        editor.putString("person2Name", person2Name);
+        editor.putBoolean("namesSet", namesSet);
+        editor.commit();
     }
 
 }

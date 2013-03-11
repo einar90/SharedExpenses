@@ -3,10 +3,10 @@
 
     <string name="app_name">Shared Expenses</string>
     <string name="action_settings">Settings</string>
-    <string name="enterAmount_message">Amount paid</string>
-    <string name="setNames_message">Set names</string>
-    <string name="saveNames">Save names</string>
-    <string name="person1_hint">Him</string>
-    <string name="person2_hint">Her</string>
+    <string name="enterAmount_message">Amount Paid</string>
+    <string name="setNames_message">Set Names</string>
+    <string name="saveNames">Save Names</string>
+    <string name="person1_hint">Name 1</string>
+    <string name="person2_hint">Name 2</string>
 
 </resources>
