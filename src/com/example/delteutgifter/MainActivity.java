@@ -68,8 +68,10 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
          * The View id used to show the data. The key number and the view id must match
          */
 
-        SimpleAdapter simpleAdpt = new SimpleAdapter(this, expenseList, android.R.layout.simple_list_item_1, new String[]{"expense"}, new int[]{android.R.id.text1});
+        SimpleAdapter simpleAdpt = new SimpleAdapter(this, expenseList, android.R.layout.simple_list_item_2, new String[]{"expense"}, new int[]{android.R.id.text2});
         lv.setAdapter(simpleAdpt);
+
+
     }
 
     protected void onStop() {
@@ -104,7 +106,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
             e.printStackTrace();
             return;
         }
-        Date timestamp = new Date();
+        Calendar timestamp = Calendar.getInstance();
 
         Expense expense = new Expense(person1Name, amountPaid, timestamp);
         Expense.addExpense(expense);
@@ -123,7 +125,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
             e.printStackTrace();
             return;
         }
-        Date timestamp = new Date();
+        Calendar timestamp = Calendar.getInstance();
 
         Expense expense = new Expense(person2Name, amountPaid, timestamp);
         Expense.addExpense(expense);

@@ -1,16 +1,18 @@
 package com.example.delteutgifter;
 
+import android.text.format.DateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Expense {
 
     private static ArrayList<Expense> expenses = new ArrayList<Expense>();
     private String name;
     private float amount;
-    private Date timestamp;
+    private Calendar timestamp;
 
-    public Expense(String name, float amount, Date timestamp) {
+    public Expense(String name, float amount, Calendar timestamp) {
         this.name = name;
         this.amount = amount;
         this.timestamp = timestamp;
@@ -45,7 +47,7 @@ public class Expense {
             serializedExpenses += "#";
             serializedExpenses += expense.getName();
             serializedExpenses += "*" + expense.getAmount();
-            serializedExpenses += "*" + expense.getTimestamp().getTime();
+            serializedExpenses += "*" + expense.getTimestamp().getTimeInMillis();
         }
 
         return serializedExpenses;
@@ -61,12 +63,12 @@ public class Expense {
                 float amount = Float.parseFloat(remainingString.substring(0, remainingString.indexOf("*")));
                 remainingString = remainingString.substring(remainingString.indexOf("*") + 1);
 
-                Date timestamp;
+                Calendar timestamp = Calendar.getInstance();
                 if (remainingString.indexOf("#") >= 0) {
-                    timestamp = new Date(Long.parseLong(remainingString.substring(0, remainingString.indexOf("#"))));
+                    timestamp.setTimeInMillis(Long.parseLong(remainingString.substring(0, remainingString.indexOf("#"))));
                     remainingString = remainingString.substring(remainingString.indexOf("#"));
                 } else {
-                    timestamp = new Date(Long.parseLong(remainingString));
+                    timestamp.setTimeInMillis(Long.parseLong(remainingString));
                     remainingString = "";
                 }
                 addExpense(new Expense(name, amount, timestamp));
@@ -83,12 +85,13 @@ public class Expense {
         return amount;
     }
 
-    public Date getTimestamp() {
+    public Calendar getTimestamp() {
         return timestamp;
     }
 
     public String toString() {
-        return timestamp.toString() + "\t" + name + "\t" + amount;
+        String timestampString = DateFormat.format("dd. MMM (kk:mm)", timestamp).toString();
+        return timestampString + ":\t\t" + name + " paid " + amount + ",-";
     }
 
 
