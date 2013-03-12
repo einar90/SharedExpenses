@@ -1,19 +1,15 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alignmentMode="alignBounds"
-            android:columnCount="1"
-            android:columnOrderPreserved="false"
-            android:useDefaultMargins="true">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:alignmentMode="alignBounds"
+              android:useDefaultMargins="true"
+              android:orientation="vertical">
 
     <EditText
             android:id="@+id/ETenterAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_gravity="right|top"
             android:layout_marginTop="30dp"
-            android:layout_row="0"
             android:ems="10"
             android:hint="@string/enterAmount_message"
             android:inputType="numberDecimal">
@@ -25,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_marginTop="10dp"
-            android:layout_row="1"
             android:orientation="horizontal">
 
         <Button
@@ -44,25 +39,22 @@
 
     <TextView
             android:id="@+id/TFbalance"
-            android:layout_column="0"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="40dp"
-            android:layout_row="3"
             android:text=""
             android:textSize="24sp"/>
 
     <ListView
             android:id="@+id/logView"
-            android:layout_row="4"
             android:layout_gravity="top"
             android:layout_width="match_parent"
-            android:layout_height="306dp"
+            android:layout_height="fill_parent"
             android:isScrollContainer="true"
             android:scrollbars="vertical"
             android:smoothScrollbar="true"
             android:scrollingCache="true"
             android:fadeScrollbars="true"/>
 
-</GridLayout>
+</LinearLayout>
