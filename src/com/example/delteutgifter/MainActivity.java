@@ -24,21 +24,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        initList();
-
-        // We get the ListView component from the layout
-        ListView lv = (ListView) findViewById(R.id.logView);
-
-        // This is a simple adapter that accepts as parameter
-        // Context
-        // Data list
-        // The row layout that is used during the row creation
-        // The keys used to retrieve the data
-        // The View id used to show the data. The key number and the view id must match
-        SimpleAdapter simpleAdpt = new SimpleAdapter(this, planetsList, android.R.layout.simple_list_item_1, new String[]{"planet"}, new int[]{android.R.id.text1});
-        lv.setAdapter(simpleAdpt);
-
     }
 
     protected void onStart() {
@@ -62,7 +47,29 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
 
         calculateNewBalances();
         displayBalance();
+        initializeExpenseLog();
 
+
+    }
+
+    private void initializeExpenseLog() {
+        //initList();
+        initializeExpenseList();
+
+        // We get the ListView component from the layout
+        ListView lv = (ListView) findViewById(R.id.logView);
+
+        /**
+         * This is a simple adapter that accepts as parameter
+         * Context
+         * Data list
+         * The row layout that is used during the row creation
+         * The keys used to retrieve the data
+         * The View id used to show the data. The key number and the view id must match
+         */
+
+        SimpleAdapter simpleAdpt = new SimpleAdapter(this, expenseList, android.R.layout.simple_list_item_1, new String[]{"expense"}, new int[]{android.R.id.text1});
+        lv.setAdapter(simpleAdpt);
     }
 
     protected void onStop() {
@@ -103,6 +110,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         Expense.addExpense(expense);
 
         calculateNewBalances();
+        initializeExpenseList();
         ((EditText) findViewById(R.id.ETenterAmount)).setText("");
     }
 
@@ -121,6 +129,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         Expense.addExpense(expense);
 
         calculateNewBalances();
+        initializeExpenseList();
         ((EditText) findViewById(R.id.ETenterAmount)).setText("");
     }
 
@@ -179,14 +188,21 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
      * Implementing the log using a ListView
      */
     // Data to show
-    List<String> expenseList = new ArrayList<String>();
+    List<Map<String, String>> expenseList = new ArrayList<Map<String, String>>();
 
     // Populating the expenseList
     private void initializeExpenseList() {
+        expenseList.clear();
         ArrayList<Expense> expenseObjectList = Expense.getAllExpenses();
         for (Expense expense : expenseObjectList) {
-            expenseList.add(expense.toString());
+            expenseList.add(0, createExpense("expense", expense.toString()));
         }
+    }
+
+    private HashMap<String, String> createExpense(String key, String name) {
+        HashMap<String, String> expense = new HashMap<String, String>();
+        expense.put(key, name);
+        return expense;
     }
 
     // The data to show
