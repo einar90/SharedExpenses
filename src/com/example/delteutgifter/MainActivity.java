@@ -70,8 +70,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
 
         SimpleAdapter simpleAdpt = new SimpleAdapter(this, expenseList, android.R.layout.simple_list_item_2, new String[]{"expense"}, new int[]{android.R.id.text2});
         lv.setAdapter(simpleAdpt);
-
-
     }
 
     protected void onStop() {

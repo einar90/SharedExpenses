@@ -34,6 +34,10 @@ public class Expense {
         expenses.remove(expense);
     }
 
+    public static void deleteExpense(int index) {
+        expenses.remove(index);
+    }
+
     public static void editExpense(Expense expenseToReplace,
                                    String newName, float newAmount) {
         expenseToReplace.name = newName;
