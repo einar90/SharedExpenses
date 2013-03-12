@@ -42,15 +42,17 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="25dp"
             android:text=""
             android:textSize="24sp"/>
+
 
     <ListView
             android:id="@+id/logView"
             android:layout_gravity="top"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="25dp"
             android:isScrollContainer="true"
             android:scrollbars="vertical"
             android:smoothScrollbar="true"

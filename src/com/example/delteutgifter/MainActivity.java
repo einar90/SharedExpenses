@@ -24,11 +24,11 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         initList();
 
         // We get the ListView component from the layout
         ListView lv = (ListView) findViewById(R.id.logView);
-
 
         // This is a simple adapter that accepts as parameter
         // Context
@@ -37,8 +37,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         // The keys used to retrieve the data
         // The View id used to show the data. The key number and the view id must match
         SimpleAdapter simpleAdpt = new SimpleAdapter(this, planetsList, android.R.layout.simple_list_item_1, new String[]{"planet"}, new int[]{android.R.id.text1});
-
-
         lv.setAdapter(simpleAdpt);
 
     }
@@ -180,6 +178,17 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
     /**
      * Implementing the log using a ListView
      */
+    // Data to show
+    List<String> expenseList = new ArrayList<String>();
+
+    // Populating the expenseList
+    private void initializeExpenseList() {
+        ArrayList<Expense> expenseObjectList = Expense.getAllExpenses();
+        for (Expense expense : expenseObjectList) {
+            expenseList.add(expense.toString());
+        }
+    }
+
     // The data to show
     List<Map<String, String>> planetsList = new ArrayList<Map<String, String>>();
 

@@ -8,5 +8,6 @@
     <string name="saveNames">Save Names</string>
     <string name="person1_hint">Name 1</string>
     <string name="person2_hint">Name 2</string>
+    <string name="log_header">Expense Log</string>
 
 </resources>
