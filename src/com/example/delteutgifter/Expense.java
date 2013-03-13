@@ -23,7 +23,7 @@ public class Expense {
     }
 
     public static void addExpense(Expense expense) {
-        expenses.add(expense);
+        expenses.add(0, expense);
     }
 
     public static void removeLatest() {
@@ -90,7 +90,7 @@ public class Expense {
     }
 
     public String getAmountString() {
-        return Float.toString(amount);
+        return Float.toString(amount) + ",-";
     }
 
     public String getDateString() {
