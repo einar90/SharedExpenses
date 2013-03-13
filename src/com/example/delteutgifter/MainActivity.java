@@ -7,11 +7,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 public class MainActivity extends Activity implements SetNamesDialog.NoticeDialogListener {
 
@@ -55,23 +57,8 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
     }
 
     private void initializeExpenseLog() {
-        //initList();
-        initializeExpenseList();
-
-        // We get the ListView component from the layout
         ListView lv = (ListView) findViewById(R.id.logView);
-
-        /**
-         * This is a simple adapter that accepts as parameter
-         * Context
-         * Data list
-         * The row layout that is used during the row creation
-         * The keys used to retrieve the data
-         * The View id used to show the data. The key number and the view id must match
-         */
-
         ExpenseLogItemAdapter expenseLogItemAdapter = new ExpenseLogItemAdapter(this, android.R.layout.simple_list_item_1, Expense.getAllExpenses());
-        ArrayAdapter expenseLogAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, expenseList);
         lv.setAdapter(expenseLogItemAdapter);
     }
 
@@ -113,7 +100,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         Expense.addExpense(expense);
 
         calculateNewBalances();
-        initializeExpenseList();
         ((EditText) findViewById(R.id.ETenterAmount)).setText("");
     }
 
@@ -132,7 +118,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         Expense.addExpense(expense);
 
         calculateNewBalances();
-        initializeExpenseList();
         ((EditText) findViewById(R.id.ETenterAmount)).setText("");
     }
 
@@ -184,28 +169,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         editor.putString("person2Name", person2Name);
         editor.putBoolean("namesSet", namesSet);
         editor.commit();
-    }
-
-
-    /**
-     * Implementing the log using a ListView
-     */
-    // Data to show
-    ArrayList<String> expenseList = new ArrayList<String>();
-
-    // Populating the expenseList
-    private void initializeExpenseList() {
-        expenseList.clear();
-        ArrayList<Expense> expenseObjectList = Expense.getAllExpenses();
-        for (Expense expense : expenseObjectList) {
-            expenseList.add(expense.toString());
-        }
-    }
-
-    private HashMap<String, String> createExpense(String key, String name) {
-        HashMap<String, String> expense = new HashMap<String, String>();
-        expense.put(key, name);
-        return expense;
     }
 
 
