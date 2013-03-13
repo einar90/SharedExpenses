@@ -75,7 +75,7 @@ public class Expense {
                     timestamp.setTimeInMillis(Long.parseLong(remainingString));
                     remainingString = "";
                 }
-                addExpense(new Expense(name, amount, timestamp));
+                expenses.add(new Expense(name, amount, timestamp));
 
             }
         }
