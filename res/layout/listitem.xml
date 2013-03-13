@@ -7,12 +7,14 @@
               android:paddingTop="5px"
               android:paddingLeft="5px">
 
-    <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="6dip"
-            android:src="@android:drawable/ic_menu_add"/>
+    <TextView android:id="@+id/date"
+              android:layout_width="wrap_content"
+              android:layout_height="fill_parent"
+              android:gravity="center"
+              android:layout_marginRight="10dip"
+              android:textStyle="bold"
+              android:textColor="@android:color/holo_blue_dark"/>
+
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dip"
@@ -26,8 +28,6 @@
 
         <TextView android:id="@+id/amount"
                   android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="10px"
-                  android:textColor="#0099CC"/>
+                  android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>
