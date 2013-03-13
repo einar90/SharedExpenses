@@ -89,6 +89,15 @@ public class Expense {
         return amount;
     }
 
+    public String getAmountString() {
+        return Float.toString(amount);
+    }
+
+    public String getDateString() {
+        String timestampString = DateFormat.format("dd. MMM (kk:mm)", timestamp).toString();
+        return timestampString;
+    }
+
     public Calendar getTimestamp() {
         return timestamp;
     }

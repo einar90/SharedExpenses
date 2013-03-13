@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class MainActivity extends Activity implements SetNamesDialog.NoticeDialogListener {
 
@@ -68,8 +70,9 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
          * The View id used to show the data. The key number and the view id must match
          */
 
-        SimpleAdapter simpleAdpt = new SimpleAdapter(this, expenseList, android.R.layout.simple_list_item_2, new String[]{"expense"}, new int[]{android.R.id.text2});
-        lv.setAdapter(simpleAdpt);
+        ExpenseLogItemAdapter expenseLogItemAdapter = new ExpenseLogItemAdapter(this, android.R.layout.simple_list_item_1, Expense.getAllExpenses());
+        ArrayAdapter expenseLogAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, expenseList);
+        lv.setAdapter(expenseLogItemAdapter);
     }
 
     protected void onStop() {
@@ -188,14 +191,14 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
      * Implementing the log using a ListView
      */
     // Data to show
-    List<Map<String, String>> expenseList = new ArrayList<Map<String, String>>();
+    ArrayList<String> expenseList = new ArrayList<String>();
 
     // Populating the expenseList
     private void initializeExpenseList() {
         expenseList.clear();
         ArrayList<Expense> expenseObjectList = Expense.getAllExpenses();
         for (Expense expense : expenseObjectList) {
-            expenseList.add(0, createExpense("expense", expense.toString()));
+            expenseList.add(expense.toString());
         }
     }
 
@@ -203,34 +206,6 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
         HashMap<String, String> expense = new HashMap<String, String>();
         expense.put(key, name);
         return expense;
-    }
-
-    // The data to show
-    List<Map<String, String>> planetsList = new ArrayList<Map<String, String>>();
-
-    private void initList() {
-        // We populate the planets
-
-        planetsList.add(createPlanet("planet", "Mercury"));
-        planetsList.add(createPlanet("planet", "Venus"));
-        planetsList.add(createPlanet("planet", "Mars"));
-        planetsList.add(createPlanet("planet", "Jupiter"));
-        planetsList.add(createPlanet("planet", "Saturn"));
-        planetsList.add(createPlanet("planet", "Uranus"));
-        planetsList.add(createPlanet("planet", "Neptune"));
-        planetsList.add(createPlanet("planet", "Pluto"));
-        planetsList.add(createPlanet("planet", "Charon"));
-        planetsList.add(createPlanet("planet", "Eris"));
-        planetsList.add(createPlanet("planet", "Sedna"));
-
-
-    }
-
-    private HashMap<String, String> createPlanet(String key, String name) {
-        HashMap<String, String> planet = new HashMap<String, String>();
-        planet.put(key, name);
-
-        return planet;
     }
 
 
