@@ -94,7 +94,12 @@ public class Expense {
     }
 
     public String getDateString() {
-        String timestampString = DateFormat.format("dd.\nMMM", timestamp).toString();
+        String timestampString = DateFormat.format("dd", timestamp).toString();
+        return timestampString;
+    }
+
+    public String getMonthString() {
+        String timestampString = DateFormat.format("MMM", timestamp).toString();
         return timestampString;
     }
 

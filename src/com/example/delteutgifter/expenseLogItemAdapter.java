@@ -36,14 +36,18 @@ public class ExpenseLogItemAdapter extends ArrayAdapter<Expense> {
             TextView name = (TextView) v.findViewById(R.id.name);
             TextView amount = (TextView) v.findViewById(R.id.amount);
             TextView date = (TextView) v.findViewById(R.id.date);
+            TextView month = (TextView) v.findViewById(R.id.month);
             if (name != null) {
                 name.setText(expense.getName());
             }
-            if (expense != null) {
+            if (amount != null) {
                 amount.setText(expense.getAmountString());
             }
-            if (expense != null) {
+            if (date != null) {
                 date.setText(expense.getDateString());
+            }
+            if (month != null) {
+                month.setText(expense.getMonthString());
             }
         }
         return v;
