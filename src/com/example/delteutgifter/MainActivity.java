@@ -5,7 +5,6 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.*;
@@ -13,7 +12,7 @@ import android.widget.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends Activity implements SetNamesDialog.SetNamesDialogListener, EditExpenseDialog.EditExpenseDialogListener {
+public class MainActivity extends Activity implements SetNamesDialog.SetNamesDialogListener {
 
     private String person1Name = null;
     private String person2Name = null;
@@ -69,8 +68,11 @@ public class MainActivity extends Activity implements SetNamesDialog.SetNamesDia
 
     }
 
+    public static void forceUpdateListView() {
+        expenseLogListView.invalidateViews();
+    }
+
     private void showEditExpenseDialog(int expenseIndex) {
-        Expense expenseToEdit = Expense.getAllExpenses().get(expenseIndex);
         EditExpenseDialog dialog = new EditExpenseDialog();
         dialog.setExpense(expenseIndex);
         dialog.show(getFragmentManager(), "EditExpenseDialogFragment");
@@ -190,34 +192,5 @@ public class MainActivity extends Activity implements SetNamesDialog.SetNamesDia
         editor.commit();
     }
 
-    /**
-     * Saves changes made in edit dialog
-     *
-     * @param dialog    Includes all info from the dialog, including the expense to edit
-     * @param expenseId
-     */
-    @Override
-    public void onEditExpenseDialogPositiveClick(EditExpenseDialog dialog, int expenseId) {
-        Log.d("Progress", "Getting Amount EditText contents");
-        EditText amountEditText = (EditText) dialog.getDialog().findViewById(R.id.edit_amount);
-        Log.d("Progress", "Getting Description EditText contents");
-        EditText descriptionEditText = (EditText) dialog.getDialog().findViewById(R.id.description);
 
-        Log.d("Progress", "Setting new amount");
-        Expense.getAllExpenses().get(expenseId).setAmount(Float.parseFloat(amountEditText.toString()));
-        Log.d("Progress", "Setting new description");
-        Expense.getAllExpenses().get(expenseId).setDescription(descriptionEditText.toString());
-    }
-
-    /**
-     * Deletes the expense clicked
-     *
-     * @param dialog
-     * @param expenseId
-     */
-    @Override
-    public void onEditExpenseDialogNeutralClick(EditExpenseDialog dialog, int expenseId) {
-        Expense.deleteExpense(dialog.getExpenseId());
-        expenseLogListView.invalidateViews();
-    }
 }

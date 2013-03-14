@@ -1,6 +1,5 @@
 package com.example.delteutgifter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -22,40 +21,9 @@ public class EditExpenseDialog extends DialogFragment {
     Expense expense;
     int expenseId;
 
-    /* The activity that creates an instance of this dialog fragment must
-     * implement this interface in order to receive event callbacks.
-     * Each method passes the DialogFragment in case the host needs to query it. */
-    public interface EditExpenseDialogListener {
-        public void onEditExpenseDialogPositiveClick(EditExpenseDialog dialog, int expenseId);
-
-        public void onEditExpenseDialogNeutralClick(EditExpenseDialog dialog, int expenseId);
-    }
-
     public void setExpense(int id) {
         this.expense = Expense.getAllExpenses().get(id);
         this.expenseId = id;
-    }
-
-    public int getExpenseId() {
-        return expenseId;
-    }
-
-    public Expense getExpense;
-
-    EditExpenseDialogListener mListener;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // Verify that the host activity implements the callback interface
-        try {
-            // Instantiate the SetNamesDialogListener so we can send events to the host
-            mListener = (EditExpenseDialogListener) activity;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(activity.toString()
-                    + " must implement EditExpenseDialogListener");
-        }
     }
 
     @Override
@@ -96,7 +64,8 @@ public class EditExpenseDialog extends DialogFragment {
                         // Used to delete entry
                 .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onEditExpenseDialogNeutralClick(EditExpenseDialog.this, expenseId);
+                        Expense.deleteExpense(expenseId);
+                        MainActivity.forceUpdateListView();
                     }
                 })
 
