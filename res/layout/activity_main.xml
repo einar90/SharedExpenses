@@ -3,24 +3,24 @@
               android:layout_height="match_parent"
               android:alignmentMode="alignBounds"
               android:useDefaultMargins="true"
-              android:orientation="vertical">
+              android:orientation="vertical" android:paddingLeft="4dip" android:paddingRight="4dip"
+              android:paddingTop="16dip" android:paddingBottom="4dip">
 
     <EditText
             android:id="@+id/ETenterAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:ems="10"
             android:hint="@string/enterAmount_message"
-            android:inputType="numberDecimal">
-        <requestFocus/>
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="4dip">
     </EditText>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dip"
+            android:layout_marginBottom="4dip"
             android:orientation="horizontal">
 
         <Button
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="4dp"
             android:text=""
             android:textSize="24sp"/>
 

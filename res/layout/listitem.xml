@@ -64,7 +64,8 @@
                 android:layout_width="fill_parent"
                 android:textSize="12dp"
                 android:textColor="@android:color/darker_gray"
-                android:text="@string/description_temp" android:layout_gravity="top"/>
+                android:text=""
+                android:layout_gravity="top"/>
 
     </LinearLayout>
 
