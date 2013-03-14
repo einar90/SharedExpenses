@@ -20,18 +20,24 @@ public class EditExpenseDialog extends DialogFragment {
 
     // Expense being edited
     Expense expense;
+    int expenseId;
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface EditExpenseDialogListener {
-        public void onEditExpenseDialogPositiveClick(DialogFragment dialog);
+        public void onEditExpenseDialogPositiveClick(EditExpenseDialog dialog, int expenseId);
 
-        public void onEditExpenseDialogNeutralClick(DialogFragment dialog);
+        public void onEditExpenseDialogNeutralClick(EditExpenseDialog dialog, int expenseId);
     }
 
-    public void setExpense(Expense expense) {
-        this.expense = expense;
+    public void setExpense(int id) {
+        this.expense = Expense.getAllExpenses().get(id);
+        this.expenseId = id;
+    }
+
+    public int getExpenseId() {
+        return expenseId;
     }
 
     public Expense getExpense;
@@ -77,18 +83,24 @@ public class EditExpenseDialog extends DialogFragment {
                 // Setting dialog title
                 .setTitle(titleString)
 
+                        // Used to save changes
                 .setPositiveButton(R.string.save_changes_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onEditExpenseDialogPositiveClick(EditExpenseDialog.this);
+                        EditText amountEditText = (EditText) EditExpenseDialog.this.getDialog().findViewById(R.id.edit_amount);
+                        EditText descriptionEditText = (EditText) EditExpenseDialog.this.getDialog().findViewById(R.id.description);
+                        Expense.getAllExpenses().get(expenseId).setAmount(Float.parseFloat(amountEditText.getText().toString()));
+                        Expense.getAllExpenses().get(expenseId).setDescription(descriptionEditText.getText().toString());
                     }
                 })
 
+                        // Used to delete entry
                 .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onEditExpenseDialogNeutralClick(EditExpenseDialog.this);
+                        mListener.onEditExpenseDialogNeutralClick(EditExpenseDialog.this, expenseId);
                     }
                 })
 
+                        // Used to cancel
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         EditExpenseDialog.this.getDialog().cancel();

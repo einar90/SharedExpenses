@@ -13,6 +13,10 @@ public class Expense {
     private Calendar timestamp;
     private String description = "";
 
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
     public String getDescription() {
         return description;
     }
