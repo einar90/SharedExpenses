@@ -7,15 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends Activity implements SetNamesDialog.NoticeDialogListener {
+public class MainActivity extends Activity implements SetNamesDialog.SetNamesDialogListener, EditExpenseDialog.EditExpenseDialogListener {
 
     String person1Name = null;
     String person2Name = null;
@@ -57,9 +54,23 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
     }
 
     private void initializeExpenseLog() {
-        ListView lv = (ListView) findViewById(R.id.logView);
+        ListView expensLogListView = (ListView) findViewById(R.id.logView);
         ExpenseLogItemAdapter expenseLogItemAdapter = new ExpenseLogItemAdapter(this, android.R.layout.simple_list_item_1, Expense.getAllExpenses());
-        lv.setAdapter(expenseLogItemAdapter);
+        expensLogListView.setAdapter(expenseLogItemAdapter);
+        expensLogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                showEditExpenseDialog(position);
+            }
+        });
+
+    }
+
+    private void showEditExpenseDialog(int expenseIndex) {
+        Expense expenseToEdit = Expense.getAllExpenses().get(expenseIndex);
+        EditExpenseDialog dialog = new EditExpenseDialog();
+        dialog.setExpense(expenseToEdit);
+        dialog.show(getFragmentManager(), "EditExpenseDialogFragment");
     }
 
     protected void onStop() {
@@ -154,7 +165,7 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following method
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void onSetNamesDialogPositiveClick(DialogFragment dialog) {
         EditText person1Entered = (EditText) dialog.getDialog().findViewById(R.id.ETperson1Name);
         EditText person2Entered = (EditText) dialog.getDialog().findViewById(R.id.ETperson2Name);
         person1Name = person1Entered.getText().toString();
@@ -172,4 +183,13 @@ public class MainActivity extends Activity implements SetNamesDialog.NoticeDialo
     }
 
 
+    @Override
+    public void onEditExpenseDialogPositiveClick(DialogFragment dialog) {
+        // TODO
+    }
+
+    @Override
+    public void onEditExpenseDialogNeutralClick(DialogFragment dialog) {
+        // TODO
+    }
 }

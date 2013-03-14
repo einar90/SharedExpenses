@@ -115,7 +115,7 @@ public class Expense {
         return timestampString;
     }
 
-    public String getTimeStampString() {
+    public String getTimestampString() {
         String timestampString = DateFormat.format("dd. MMM - kk:mm", timestamp).toString();
         return timestampString;
     }
