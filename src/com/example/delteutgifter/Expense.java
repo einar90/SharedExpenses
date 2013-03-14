@@ -11,6 +11,15 @@ public class Expense {
     private String name;
     private float amount;
     private Calendar timestamp;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Expense(String name, float amount, Calendar timestamp) {
         this.name = name;
@@ -100,6 +109,11 @@ public class Expense {
 
     public String getMonthString() {
         String timestampString = DateFormat.format("MMM", timestamp).toString();
+        return timestampString;
+    }
+
+    public String getTimeStampString() {
+        String timestampString = DateFormat.format("dd. MMM - kk:mm", timestamp).toString();
         return timestampString;
     }
 

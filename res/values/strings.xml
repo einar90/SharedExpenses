@@ -9,6 +9,8 @@
     <string name="person1_hint">Name 1</string>
     <string name="person2_hint">Name 2</string>
     <string name="log_header">Expense Log</string>
+    <string name="new_amount">Set new amount</string>
+    <string name="description_hint">Add a description</string>
     <string name="description_temp">Description of the entry goes here.</string>
 
 </resources>
