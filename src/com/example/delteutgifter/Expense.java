@@ -11,7 +11,7 @@ public class Expense {
     private String name;
     private float amount;
     private Calendar timestamp;
-    private String description;
+    private String description = "";
 
     public String getDescription() {
         return description;
@@ -35,10 +35,6 @@ public class Expense {
         expenses.add(0, expense);
     }
 
-    public static void removeLatest() {
-        expenses.remove(expenses.size() - 1);
-    }
-
     public static void deleteExpense(Expense expense) {
         expenses.remove(expense);
     }
@@ -47,10 +43,11 @@ public class Expense {
         expenses.remove(index);
     }
 
-    public static void editExpense(Expense expenseToReplace,
-                                   String newName, float newAmount) {
-        expenseToReplace.name = newName;
+    public static void editExpense(Expense expenseToReplace, float newAmount, String newDescription) {
         expenseToReplace.amount = newAmount;
+        if (newDescription != null && newDescription.length() > 0) {
+            expenseToReplace.description = newDescription;
+        }
     }
 
     public static String serializeExpenses() {
@@ -60,6 +57,7 @@ public class Expense {
             serializedExpenses += "#";
             serializedExpenses += expense.getName();
             serializedExpenses += "*" + expense.getAmount();
+            serializedExpenses += "*" + expense.getDescription();
             serializedExpenses += "*" + expense.getTimestamp().getTimeInMillis();
         }
 
@@ -76,6 +74,9 @@ public class Expense {
                 float amount = Float.parseFloat(remainingString.substring(0, remainingString.indexOf("*")));
                 remainingString = remainingString.substring(remainingString.indexOf("*") + 1);
 
+                String description = remainingString.substring(0, remainingString.indexOf("*"));
+                remainingString = remainingString.substring(remainingString.indexOf("*") + 1);
+
                 Calendar timestamp = Calendar.getInstance();
                 if (remainingString.indexOf("#") >= 0) {
                     timestamp.setTimeInMillis(Long.parseLong(remainingString.substring(0, remainingString.indexOf("#"))));
@@ -84,7 +85,9 @@ public class Expense {
                     timestamp.setTimeInMillis(Long.parseLong(remainingString));
                     remainingString = "";
                 }
-                expenses.add(new Expense(name, amount, timestamp));
+                Expense expense = new Expense(name, amount, timestamp);
+                expense.setDescription(description);
+                expenses.add(expense);
 
             }
         }
