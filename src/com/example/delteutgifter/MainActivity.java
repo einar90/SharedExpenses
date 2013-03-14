@@ -218,5 +218,6 @@ public class MainActivity extends Activity implements SetNamesDialog.SetNamesDia
     @Override
     public void onEditExpenseDialogNeutralClick(EditExpenseDialog dialog, int expenseId) {
         Expense.deleteExpense(dialog.getExpenseId());
+        expenseLogListView.invalidateViews();
     }
 }
