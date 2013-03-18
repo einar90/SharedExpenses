@@ -1,4 +1,4 @@
-package com.example.delteutgifter;
+package com.einarbaumann.sharedexpenses;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
